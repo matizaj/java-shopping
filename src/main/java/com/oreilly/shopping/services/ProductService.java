@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,5 +29,12 @@ public class ProductService {
                     new Product("Sofa", BigDecimal.valueOf(279))
             )).forEach(System.out::println);
         }
+    }
+
+    public List<Product> findAll() {
+        return repo.findAll();
+    }
+    public Optional<Product> findById(Long id) {
+        return repo.findById(id);
     }
 }
