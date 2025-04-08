@@ -2,6 +2,7 @@ package com.oreilly.shopping;
 
 import com.oreilly.shopping.dao.ProductRepository;
 import com.oreilly.shopping.entities.Product;
+import com.oreilly.shopping.services.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,17 +19,8 @@ public class ShoppingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initializeDatabase(ProductRepository repo) {
-		return args -> {
-			if(repo.count()==0){
-				repo.saveAll(List.of(
-						new Product("TV tray", BigDecimal.valueOf(4.95)),
-						new Product("Shoes", BigDecimal.valueOf(11.55)),
-						new Product("Book", BigDecimal.valueOf(7)),
-						new Product("Sofa", BigDecimal.valueOf(279))
-				)).forEach(System.out::println);
-			}
-		};
+	public CommandLineRunner initializeDatabase(ProductService svc) {
+		return args -> svc.initializeDatabase();
 	}
 }
 
